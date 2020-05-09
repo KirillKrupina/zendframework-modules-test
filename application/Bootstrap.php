@@ -3,28 +3,6 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
-//    protected function _initDB() {
-//        $config = array(
-//            'host' => 'localhost',
-//            'username' => 'root',
-//            'password' => '',
-//            'dbname' => 'zfdb',
-//            'charset' => 'utf8'
-//        );
-//        try {
-//            $db = Zend_Db::factory('Pdo MySql', $config);
-//        } catch (Zend_Db_Exception $e) {
-//            echo 'Error: #' . $e;
-//        }
-//
-//        if (!isset($db)) {
-//            echo 'DB is undefined';
-//        } else {
-//            Zend_Db_Table::setDefaultAdapter($db);
-//        }
-//
-//    }
-
     protected function _initLog()
     {
         $log = new Zend_Log();
@@ -58,5 +36,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 
     }
+
+    // like that or in application.ini
+//
+//    protected function _initRouter() {
+//        $front = Zend_Controller_Front::getInstance();
+//        $router = $front->getRouter();
+//
+//        $route = new Zend_Controller_Router_Route_Static(
+//            'CoreIndexIndex',
+//            array(
+//                'module' => 'core',
+//                'controller' => 'index',
+//                'action' => 'index'
+//            )
+//        );
+//
+//        $router->addRoute('index-route', $route);
+//    }
 }
 
