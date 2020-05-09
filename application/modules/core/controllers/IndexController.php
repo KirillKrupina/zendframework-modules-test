@@ -12,6 +12,8 @@ class IndexController extends Zend_Controller_Action
     {
         $this->view->a = $this->_request->getParam('a', 100);
 
+        echo $this->_request->getParam('param');
+
     }
 
     public function reportAction() {

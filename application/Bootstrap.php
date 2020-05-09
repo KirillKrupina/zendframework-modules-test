@@ -38,8 +38,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     // like that or in application.ini
-//
-//    protected function _initRouter() {
+
+    protected function _initRouter() {
+        // static
 //        $front = Zend_Controller_Front::getInstance();
 //        $router = $front->getRouter();
 //
@@ -53,6 +54,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        );
 //
 //        $router->addRoute('index-route', $route);
-//    }
+
+
+        // with params in url
+        $front = Zend_Controller_Front::getInstance();
+        $router = $front->getRouter();
+
+        $route = new Zend_Controller_Router_Route(
+            'CoreIndexIndex/:param',
+            array(
+                'module' => 'core',
+                'controller' => 'index',
+                'action' => 'index',
+                'param' => ''
+            )
+        );
+
+        $router->addRoute('index-route', $route);
+    }
 }
 
