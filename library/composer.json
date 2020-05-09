@@ -1,0 +1,13 @@
+{
+    "name": "kiorling/zf-test",
+    "authors": [
+        {
+            "name": "Kirill Krupina",
+            "email": "kirill.krupina26@gmail.com"
+        }
+    ],
+    "require": {
+        "zendframework/zendframework1": "^1.12",
+        "phpoffice/phpspreadsheet": "^1.12"
+    }
+}

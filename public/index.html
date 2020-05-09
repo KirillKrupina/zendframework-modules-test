@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/public/vendor/extjs/adapter/ext/ext-base-debug.js"></script>
+    <script type="text/javascript" src="/public/vendor/extjs/ext-all-debug.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/vendor/extjs/resources/css/ext-all.css"/>
+    <script src="app/index.js"></script>
+
+</head>
+<body>
+
+    <script>
+        Ext.onReady(function () {
+            var win = new App.Window({
+                //title: 'Test Window',
+                padding: 10
+            }).show();
+        })
+    </script>
+</body>
+</html>
