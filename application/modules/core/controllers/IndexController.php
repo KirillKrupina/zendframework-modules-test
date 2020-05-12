@@ -3,13 +3,10 @@
 class IndexController extends Zend_Controller_Action
 {
 
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
 
     public function indexAction()
     {
+        $this->view->a = $this->_request->getParam('a', 100);
 
         echo $this->_request->getParam('param');
 
@@ -18,20 +15,49 @@ class IndexController extends Zend_Controller_Action
 
     }
 
-    public function reportAction() {
+    public function listAction() {
+
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
-        $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
+       $users = $this->getUsers();
 
-        $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-//        $writer->save('hello world.xlsx');
+        return $this->_helper->json->sendJson(array(
+            'success' => true,
+            'rows' => $users,
+            'count' => sizeof($users)
+        ));
 
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment; filename="hello world.xlsx"');
-        $writer->save("php://output");
+    }
+
+    public function reportAction() {
+        $users = $this->getUsers();
+
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        Core_Model_Reports_UsersReportXLS::generate($users, 'filename.xls');
+
+
+
+    }
+
+    protected function getUsers() {
+
+        $usersModel = new Core_Model_Users();
+
+        $id_param = $this->getRequest()->getParam('id');
+        $fullname_param = $this->getRequest()->getParam('fullname');
+
+        if ($id_param != null) {
+            $usersModel->whereUserId($id_param);
+        }
+        if ($fullname_param != null) {
+            $usersModel->whereFullnameLike($fullname_param);
+        }
+
+        $users = $usersModel->myfetchAll();
+        return $users;
 
     }
 

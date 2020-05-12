@@ -51,7 +51,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
 
         $loader = new Zend_Application_Module_Autoloader(array(
-            'namespace' => 'core',
+            'namespace' => 'Core',
             'basePath' => APPLICATION_PATH . '/modules/core'
         ));
         $loader->addResourceType('router', 'routers', 'Router');
