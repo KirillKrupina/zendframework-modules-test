@@ -11,7 +11,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         )));
     }
 
-    protected function _initView() {
+    protected function _initView()
+    {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
@@ -22,14 +23,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headTitle('ZF TEST')->setSeparator(' - ');
 
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
-                         ->appendName('author', 'Author`s Name');
+            ->appendName('author', 'Author`s Name');
 
         $view->headLink()->appendStylesheet('/public/css/main.css');
 
         $view->headScript()->appendFile('/public/vendor/jquery/jquery-3.3.1.min.js');
     }
 
-    protected function _initHelpers() {
+    protected function _initHelpers()
+    {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
@@ -37,9 +39,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     }
 
+
+    protected function _initModules()
+    {
+        $frontController = $this->bootstrap('frontController')->getPluginResource('frontController')->getFrontController();
+        $router = $frontController->getRouter();
+        $frontController->setControllerDirectory(array(
+            'core' => APPLICATION_PATH . '/modules/core/controllers',
+            'blog' => APPLICATION_PATH . '/modules/blog/controllers',
+            'forum' => APPLICATION_PATH . '/modules/forum/controllers',
+        ));
+
+        $loader = new Zend_Application_Module_Autoloader(array(
+            'namespace' => 'core',
+            'basePath' => APPLICATION_PATH . '/modules/core'
+        ));
+        $loader->addResourceType('router', 'routers', 'Router');
+
+
+    }
+
+
     // like that or in application.ini
 
-    protected function _initRouter() {
+    protected function _initRouter()
+    {
         // static
 //        $front = Zend_Controller_Front::getInstance();
 //        $router = $front->getRouter();
@@ -71,6 +95,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
 
         $router->addRoute('index-route', $route);
+
+        // regular
+//        $front = Zend_Controller_Front::getInstance();
+//        $router = $front->getRouter();
+//
+//        $route = new Zend_Controller_Router_Route_Regex(
+//            'CoreIndexIndex(?:/(\d{4}))?',
+//            array(
+//                'module' => 'core',
+//                'controller' => 'index',
+//                'action' => 'index',
+//                1 => 2001
+//            )
+//        );
+//
+//        $router->addRoute('index-route', $route);
+
     }
+
+
 }
 

@@ -10,9 +10,11 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->view->a = $this->_request->getParam('a', 100);
 
         echo $this->_request->getParam('param');
+
+        // regular
+//        echo $this->_request->getParam(1);
 
     }
 
