@@ -16,7 +16,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 /** Zend_Application */
-require_once '../library/vendor/autoload.php';
+$loader = require_once '../library/vendor/autoload.php';
+$loader->add('MyLib_', realpath(APPLICATION_PATH.'/../library'));
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(

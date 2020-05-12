@@ -1,8 +1,7 @@
 <?php
 
-class IndexController extends Zend_Controller_Action
+class IndexController extends MyLib_NoViewController
 {
-
 
     public function indexAction()
     {
@@ -17,9 +16,6 @@ class IndexController extends Zend_Controller_Action
 
     public function listAction() {
 
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-
        $users = $this->getUsers();
 
         return $this->_helper->json->sendJson(array(
@@ -33,12 +29,7 @@ class IndexController extends Zend_Controller_Action
     public function reportAction() {
         $users = $this->getUsers();
 
-        $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-
         Core_Model_Reports_UsersReportXLS::generate($users, 'filename.xls');
-
-
 
     }
 
